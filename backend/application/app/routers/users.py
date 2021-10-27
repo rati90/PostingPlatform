@@ -11,6 +11,12 @@ class User(Document):
 
 
 class Posts(Document):
-    created_by: Optional[str]
+    created_by: str
     name: Optional[str]
     desc: str
+
+
+class Comments(Document):
+    created_by: str
+    created_for_post: str
+    comment: str

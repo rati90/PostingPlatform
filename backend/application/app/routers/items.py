@@ -8,6 +8,7 @@ async def get_user(email: str) -> Union[User, None]:
     return await User.find_one(User.email == email)
 
 
+
 """async def get_post(id):
     credentials_exception = HTTPException(
         status_code=status.HTTP_204_NO_CONTENT,
