@@ -65,28 +65,29 @@ async def delete_post(post_id: str, current_user: User = Depends(get_current_use
 
 @router.post("/api/create/comment/{post_id}")
 async def make_a_comment(
-        post_id,
+        post_id: str,
         new_comments: Comment,
         current_user: User = Depends(get_current_user),
 ):
-
     comment_data = await Post.get(post_id)
     new_comments.created_by = str(current_user.email)
+    await new_comments.save()
     comment_data.comments.append(new_comments)
     return await comment_data.save()
 
 
-@router.post("/api/update/comment/{post_id}")
-async def update_comment(post_id: str, renewed_comment: str, current_user: User = Depends(get_current_user)):
-    if Comment.created_by == str(current_user.email):
-        comment_update = await Comment.get(comment_id)
-
-        return await comment_update.set({Comment.comment: renewed_comment})
-
+@router.post("/api/update/comment/{comment_id}")
+async def update_comment(comment_id: str, renewed_comment: str, current_user: User = Depends(get_current_user)):
+    current_comment = await Comment.get(comment_id)
+    if current_comment.created_by == str(current_user.email):
+        return await current_comment.set({current_comment.comment: renewed_comment})
 
 
 @router.post("/api/delete/comment/{comment_id}")
 async def delete_comment(comment_id, current_user: User = Depends(get_current_user)):
-    if Comment.created_by == str(current_user.email):
+    comment_data = await Comment.get(comment_id)
+    print(comment_data.created_by)
+    if comment_data.created_by == str(current_user.email):
+
         comment_delete = await Comment.get(comment_id)
         return await comment_delete.delete()
