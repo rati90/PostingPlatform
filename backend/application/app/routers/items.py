@@ -1,7 +1,7 @@
 from typing import Union
 from fastapi import HTTPException, status
 
-from .users import User, Posts
+from .users import User, Post
 
 
 async def get_user(email: str) -> Union[User, None]:

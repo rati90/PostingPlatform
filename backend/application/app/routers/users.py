@@ -1,4 +1,5 @@
-from typing import Optional
+from typing import Optional, List
+from pydantic import BaseModel
 
 from beanie import Document
 
@@ -10,13 +11,17 @@ class User(Document):
     last_name: Optional[str] = None
 
 
-class Posts(Document):
+class Comment(BaseModel):
+    created_by: str
+    comment: str
+
+
+class Post(Document):
     created_by: str
     name: Optional[str]
     desc: str
+    comments: Optional[List[Comment]] = []
 
 
-class Comments(Document):
-    created_by: str
-    created_for_post: str
-    comment: str
+
+
