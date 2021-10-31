@@ -10,6 +10,7 @@ from ..config import settings
 router = APIRouter(prefix="")
 
 
+# only for testing test
 @router.get('/')
 async def read_root():
     return {"message": "Hello World"}
@@ -93,6 +94,5 @@ async def delete_comment(comment_id, current_user: User = Depends(get_current_us
     comment_data = await Comment.get(comment_id)
     print(comment_data.created_by)
     if comment_data.created_by == str(current_user.email):
-
         comment_delete = await Comment.get(comment_id)
         return await comment_delete.delete()
