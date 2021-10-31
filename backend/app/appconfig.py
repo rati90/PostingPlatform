@@ -4,8 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from beanie import init_beanie
 
-from ..app.routers.views import router
-from ..app.routers.users import User, Post, Comment
+from .routers.views import router
+from .routers.users import User, Post, Comment
 from .config import settings
 
 

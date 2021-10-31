@@ -22,7 +22,7 @@ def get_settings():
     }
 
     config = os.environ.get("FASTAPI_CONFIG")
-    return config_cls_dict.get(config)()
+    return config_cls_dict.get(config)  #()
 
 
 settings = get_settings()

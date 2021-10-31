@@ -10,6 +10,11 @@ from ..config import settings
 router = APIRouter(prefix="")
 
 
+@router.get('/')
+async def read_root():
+    return {"message": "Hello World"}
+
+
 @router.post("/api/signup", status_code=201, response_model=UserOut)
 async def user_signup(user_data: User):
     user_data.password = get_password_hash(user_data.password)
