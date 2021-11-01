@@ -21,3 +21,7 @@ python-multipart==0.0.5
 bcrypt==3.2.0
 pydantic[email]
 pytest==6.2.5
+requests
+httpx==0.20.0 
+asgi-lifespan==1.0.1 
+pytest-asyncio==0.16.0 

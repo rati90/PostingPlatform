@@ -1,8 +1,10 @@
+import pytest
 from bson import ObjectId, json_util
 import json
 from fastapi.testclient import TestClient
 
-from ...main import app
+
+from main import app
 
 client = TestClient(app)
 
@@ -29,14 +31,16 @@ def parse_json(post):
     return json.loads(json_util.dumps(post))
 
 
-def test_read_main():
-    response = client.get("/")
+@pytest.mark.asyncio
+async def test_read_main(client):
+    response = await client.get("/")
+    
     assert response.status_code == 200
     assert response.json() == {"message": "Hello World"}
 
-
-def test_get_post():
-    response = client.get("/api/get/post/123456781234567812345678", json=post)
+@pytest.mark.asyncio
+async def test_get_post(client):
+    response = await client.get("/api/get/post/123456781234567812345678")
     assert response.status_code == 200
 
 
