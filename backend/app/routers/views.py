@@ -10,10 +10,10 @@ from ..config import settings
 router = APIRouter(prefix="")
 
 
-# only for testing test
+'''# only for testing test
 @router.get('/')
 async def read_root():
-    return {"message": "Hello World"}
+    return {"message": "Hello World"}'''
 
 
 @router.post("/api/signup", status_code=201, response_model=UserOut)
