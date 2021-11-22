@@ -5,8 +5,8 @@ static_files = {
     '/': './public',
 }
 
-sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins="*")
-subapi = socketio.ASGIApp(sio, static_files=static_files)
+sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins=[])
+sio_app = socketio.ASGIApp(sio)
 
 
 client_count = 0
@@ -26,10 +26,6 @@ async def connect(sid, environ):
     global a_count
     global b_count
 
-    username = environ.get('HTTP_X_USERNAME')
-    print('username', username)
-    if not username:
-        return False
 
     async with sio.session(sid) as session:
         session['username'] = username

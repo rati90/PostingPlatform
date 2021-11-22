@@ -1,11 +1,6 @@
-const sio = io({
-    transportOptions: {
-        polling: {
-            extraHeaders: {
-                'X-Username': window.location.hash.substring(1)
-                }
-            }
-        }
+const sio = io('http://localhost:8000', {
+    transports: ["websocket"],
+    path: '/ws/socket.io'
 });
 
 

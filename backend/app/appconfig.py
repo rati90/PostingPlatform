@@ -6,15 +6,13 @@ from beanie import init_beanie
 from .routers.views import router
 from .routers.users import User, Post, Comment
 from .config import settings
-from .Server.config_socketatio import sio, subapi
+from .Server.config_socketatio import sio, sio_app
 
 
 
 def create_app() -> FastAPI:
     app = FastAPI()
-    subapi = FastAPI()
 
-    app.mount("/s", subapi)
 
     app.include_router(router)
     app.add_middleware(
@@ -25,8 +23,7 @@ def create_app() -> FastAPI:
         allow_headers=["*"]
     )
 
-
-
+    app.mount("/ws", sio_app)
     @app.on_event("startup")
     async def startup_event():
         client = motor.motor_asyncio.AsyncIOMotorClient(settings.MONGODB_URL)
